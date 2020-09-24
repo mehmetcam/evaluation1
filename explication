@@ -1,0 +1,96 @@
+"Wall of Books" by benuski is licensed under CC BY-SA 2.0
+
+
+
+Développement web & web mobile – Évaluation #01
+
+
+Prérequis
+Pour réaliser cette évaluation, vous aurez besoin de :
+    • Un IDE (éditeur de code) de votre choix, VS code ou Atom feront bien l’affaire par exemple
+    • Une connexion internet régulière : inutile d’être connecté en permanence mais vous aurez besoin d’accéder à une API en ligne ainsi qu’à une maquette en ligne
+
+Objectif
+Au travers de cette mise en pratique, l’objectif est que vous mettiez en œuvre les compétences suivantes :
+    • Intégration d’un design existant
+        ◦ Construction HTML sémantique (utilisez le moins de balises génériques comme “div”)
+        ◦ Construction CSS cohérente : 
+Plusieurs éléments partagent des propriétés CSS communes => attribuez leur une même classe (si une classe CSS n’est utilisée qu’une fois, vous ne devez pas utiliser cette classe mais un ID)
+    • Rendre une page web dynamique en utilisant du JavaScript et notamment des requêtes asynchrones (API native fetch() ou librairie externe Axios) puis en manipulant le DOM pour y afficher les résultats.
+      
+Modalités d’évaluation
+    • Le respect du design (rendu visuel similaire à la maquette fournie)
+    • HTML et CSS conforme aux spécifications du W3C :
+        ◦ https://validator.w3.org/ pour le HTML
+        ◦ http://jigsaw.w3.org/css-validator/ pour le CSS
+    • Le code (HTML, CSS, JavaScript, PHP) doit être indenté
+Vous pouvez pour cela utiliser des plugins dans votre IDE. Prettier est le plus connu et l’un des plus prisé dans la communauté du développement web
+    • Votre code (obligatoire pour JavaScript et PHP, optionnel pour HTML et CSS) doit être commenté/documenté.
+    • Vous décrivez dans un fichier readme.md l’avancement de votre travail : ce que vous avez fait, ce qu’il manque, les points sur les quels vous avez eu des difficultés
+
+
+Sujet
+L’association Actutu, qui regroupe un ensemble de libraires professionnels et vendeurs particuliers, souhaite mettre en place son nouveau site de vente en ligne. Votre tâche consiste à réaliser la page d’accueil de ce nouveau site à partir d’un design existant. Ce travail se déroule en plusieurs étapes qui sont décrites ci-dessous.
+
+Étape 1 – Prise en main et intégration du design
+Le designer a mis à disposition le design de la page d’accueil via le logiciel Figma. En cliquant sur ce lien, vous allez voir apparaître le site mais aussi une invitation à vous connecter : nous vous recommandons de le faire car cela vous donnera accès à de nombreuses informations, notamment liées au CSS (cf : annexe sur la prise en main de Figma).
+Vous devez donc dans un premier temps intégrer le HTML/CSS conformément à ce que le design vous propose. Pensez-bien à consulter la page commentée du design, car elle contient de nombreuses annotations pour vous indiquer comment il faudrait intégrer le design. Si vous les lisez attentivement avant de commencer, cela pourra vous aider à choisir comment intégrer votre design.
+Dans cette première partie :
+    • Nous voulons avoir l’intégration du design pour des écrans de 1000px de large et plus (tel qu’il apparaît dans le design donc, rien de plus)
+    • Nous voulons aussi faire en sorte que le site s’adapte sur des écrans allant jusqu’à 800px de large : cela ne change pas la structure du site, cela réduit simplement la taille des éléments de façon assez naturelle.
+    • Nous ne souhaitons pas encore supporter la partie responsive du site
+    • Nous ne souhaitons pas intégrer de JavaScript : on intègre le HTML/CSS tel quel et c’est tout
+Étape 2 – Passage à un design “responsive”
+Maintenant que nous disposons d’un site bien formé, nous pouvons maintenant prendre en compte les informations décrites dans les bulles mauve du design pour proposer un site adapté à des résolutions d’écran inférieures à 800px (si vous arrivez à proposer un affichage correct jusqu’à 640px, cela sera parfait).
+
+Étape 3 – Rendre notre site dynamique
+Pour le moment, notre design affiche des livres de manière statique. Nous souhaitons évidemment nous baser sur des données réelles et dans un premier temps nous allons utiliser une API existante : celle de Google. Décomposons un peu le travail pour arriver au résultat souhaité :
+    • Créer un tableau de livre en JavaScript (chaque livre étant composé d’un titre, d’un auteur, d’un prix, d’une image et d’un résumé. Mettez 4 livres factices dans votre tableau pour pouvoir tester votre code
+    • Créer une fonction JavaScript afficheRecommandations() qui se base sur le tableau créé à l’étape précédente et qui affiche effectivement les 3 premiers livres (ou trois livres au hasard idéalement)
+    • Créer une fonction JavaScript afficheLivres(prixMax) qui se base sur notre tableau créé à l’étape précédente et qui affiche les livres à moins du prixMax passé en paramètre
+    • Appelez vos deux fonctions au démarrage du site et vérifiez que le site s’affiche correctement
+
+Étape 4 - Intégration de l’API Google
+Nous avons maintenant une structure qui se prête à l’intégration de notre API Google. Vous pouvez utiliser la requête suivante pour voir ce qu’elle fait : 
+https://www.googleapis.com/books/v1/volumes?q=ecmascript
+L’API est assez simple d’usage et si vous avez travaillé avec OpenWeatherMap par exemple, vous n’aurez pas trop de souci à l’utiliser. Vous allez donc maintenant pouvoir :
+    • Créer une fonction RechercheLivres(recherche) qui prend en paramètre une chaîne de caractère (ecmascript dans l’exemple ci-dessus), qui envoie la requête et stocke les résultats dans votre tableau JavaScript créé à l’étape précédente (attention, il faut transformer les livres reçus pour correspondre au format que vous avez défini dans l’étape précédente).
+Attention, on ne parle pas encore de notre champ de recherche de la page HTML, on l’utilisera plus tard.
+    • En fin de votre fonction RechercheLivres(), appelez les fonctions afficheRecommandations() et afficheLivres(prixMax). Cela permettra de mettre à jour les informations pour l’utilisateur. Le prix retenu dans l’API est listPrice.
+    • Faites-en sorte que lorsque l’utilisateur saisis une recherche dans la barre dédiée, cela appelle effectivement la fonction RechercheLivres(). 
+
+Étape 5  - Fabriquer sa propre API
+Nous avons maintenant un site fonctionnel. Nous souhaitons maintenant que lorsque le site apparaît, ce ne soit plus la recherche “ecmascript” qui s’affiche mais un résultat venant de notre site propre en PHP. L’idée est donc la suivante :
+    • Lorsque l’on arrive sur le site, une requête est envoyée directement vers notre script en PHP
+    • Notre script PHP retourne du contenu textuel (disponible dans un fichier sample-api.json)
+Les données contenues dans ce fichier son au même format que dans l’API de Google. Le travail à faire pour traiter cette réponse est donc identique, seule l’origine change
+    • Notre site affiche donc le résultat
+    • Pour toute autre recherche saisie par l’utilisateur dans le champ dédié, on utilise encore l’API de Google : notre fichier PHP ne sert qu’au démarrage donc.
+
+Livrables
+Vous fournirez dans une dépôt Git dédié à ce travail :
+    • Vos fichiers HTML/CSS/PHP/JavaScript correspondant au travail fourni
+    • Un fichier Readme.md (toujours dans ce dépôt) présentant votre travail et indiquant le travail fait/restant au moment du rendu
+    • Un lien vers ce dépôt Git sur la plateforme Simplonline, dans le brief correspondant
+
+Délais et modalités
+L’évaluation commence le lundi 21 septembre 2020 et se termine 7 jours plus tard (dimanche 27 septembre) dans la soirée. Vous pourrez travailler durant les heures de formation ainsi qu’en dehors (chez vous par exemple). Le rendu qui sera évalué sera le dernier commit effectué avant la fin de l’épreuve (avant lundi 28 donc).
+
+Annexe 1 : Prise en main de Figma
+Figma est un logiciel en ligne de design relativement simple de prise en main. En cliquant sur le lien qui vous a été communiqué dans l’étape 1 du sujet, vous allez être redirigé sur le design concerné. Connectez-vous avec un compte Google ou créez un compte Figma pour commencer : cela vous donnera accès à de nombreuses fonctionnalités qui vont fortement vous aider dans votre travail.
+Une fois connecté vous allez arriver sur une page structurée de la façon suivante :
+
+    1. Dans la partie gauche de la page (en haut), vous pouvez voir une liste de Pages et dans notre cas, il y a deux pages : la page d’accueil sans les annotations sur la façon d’intégrer le design et la même page avec des bulles de couleur pour indiquer comment intégrer le design (bulle rouge = informations générales, bulle mauve = informations sur l’implémentation d’un design responsive).
+Vous pouvez donc naviguer entre ces deux pages selon vos choix.
+    2. Dans la partie gauche (en dessous), vous trouverez la liste de tous les éléments graphiques utilisés dans le design : dans ce travail, nous n’en avons absolument pas besoin. Vous voyez dans la capture ci-dessus que “Rectangle 9” est sélectionné et cela se voit aussi dans la partie centrale de la page : un élément y est détouré en bleu avec ses dimensions
+    3. Dans la partie centrale, nous trouvons le design effectif. Vous allez pouvoir naviguer dans cette page (pour notamment voir la suite du design en dessous, zoomer/dézoomer, etc.).
+En cliquant sur n’importe quel élément, vous pourrez notamment extraire les éléments visuels comme le logo en faisant un clic droit sur l’élément souhaité, puis en le copiant en tant que SVG par exemple :
+
+Un fois la copie faite :
+        a. Créez un fichier “logo.svg” dans votre éditeur
+        b. Collez-y ce que Figma a mis pour vous dans le presse-papier (Ctrl + V ou clic droit puis “Coller”)
+        c. Enregistrez votre fichier : il s’agit d’une image que vous pourrez ensuite inclure dans vos balises img, comme s’il s’agissait d’une image png, jpg ou gif.
+    4. Dans la partie de droite enfin, vous trouverez deux onglets :
+        a. L'onglet Inspect affiche de nombreuses informations sur le style (police de caractère, dimensions, etc.) dans un premier temps, puis carrément des propriétés CSS vous permettant d’implémenter le design.
+Attention : ce n’est pas parce qu’il y a des propriétés CSS qu’elles sont toutes pertinentes... Le positionnement (absolu souvent) des éléments n’est absolument souhaitable dans la majorité des cas. Le CSS présent ici peut donc vous aider mais il serait très maladroit de l’utiliser tel quel.
+        b. Le deuxième onglet vous permet d’exporter l’élément sélectionné (comme on l’a fait tout à l’heure en SVG en faisant un clic droit sur l’objet). Cette fois ci c’est plus simple malgré tout : vous pouvez choisir le format de destination et Figma vous fabrique le fichier pour vous. Cela étant, il se peut qu’il exporte plusieurs fichiers au lieu d’un pour des raisons que l’on n’expliquera pas ici. 
