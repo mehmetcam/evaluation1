@@ -32,21 +32,21 @@
             <img src="iconbook.PNG" alt="" srcset="">
             <p>Recommandations</p>
         </div>
-        <div class="recos">
+        <div id="recos" class="recos">
             <div class="reco">
-                <img src="yellowbook.jpg" alt="" id="bookcover">
+                <img src="yellowbook.jpg" alt="" id="bookcovera">
                 <p id="headera">Learning ECMAScript 6</p>
                 <p id="authora">Narayan Prusty</p>
                 <p id="pricea">27,42€</p>
             </div>
             <div class="reco">
-                <img src="greenbook.jpg" alt="" id="bookcover">
+                <img src="greenbook.jpg" alt="" id="bookcoverb">
                 <p id="headerb">Learning ECMAScript</p>
                 <p id="authorb">Narayan Prusty</p>
                 <p id="priceb">18.99€</p>
             </div>
             <div class="reco">
-                <img src="redbook.jpg" alt="" id="bookcover">
+                <img src="redbook.jpg" alt="" id="bookcoverc">
                 <p id="headerc">ECMAScript Cookbool</p>
                 <p id="authorc">Ross Harisson</p>
                 <p id="pricec">19.99€</p>
@@ -153,10 +153,15 @@
     </div>
     
 
+    <button onclick="RechercheLivres()" >Tikla kanki</button>
+    <p id="book">
+        buraya
+    </p>
+
 <script src="app.js" ></script>
 <script>
     afficheRecommandations();
-    // afficheLivres()
+    //afficheLivres();
 </script>
 </body>
 </html>
